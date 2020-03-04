@@ -1,6 +1,6 @@
 # Static GLFW for nim
 
-This library is always statically linked, so only the fucntionality you use gets included in the binary. There is also no need for glfw.dll or libglfw3.dylib to be included.
+This library is always statically linked so only the functionality you use gets included in the binary. There is also no need for glfw.dll or libglfw3.dylib to be included.
 
 ## Example
 
