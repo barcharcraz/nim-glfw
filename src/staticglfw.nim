@@ -346,7 +346,6 @@ const
   DONT_CARE* = -1
 
 # GLFW API types
-
 type
   GLProc* = proc() {.cdecl.}
   VKProc* = proc() {.cdecl.}
@@ -400,23 +399,23 @@ proc getVersionString*(): cstring {.cdecl, importc: "glfwGetVersionString".}
 proc getRequiredInstanceExtensions*(count: ptr cuint): ptr cstring {.cdecl, importc: "glfwGetRequiredInstanceExtensions".}
 proc extensionSupported*(extension: cstring): cint {.cdecl, importc: "glfwExtensionSupported".}
 proc getProcAddress*(procname: cstring): GLProc {.cdecl, importc: "glfwGetProcAddress".}
-# cursor functions
+# Cursor functions
 proc createCursor*(image: Image, xhot, yhot: cint): CursorHandle {.cdecl, importc: "glfwCreateCursor".}
 proc createStandardCursor*(shape: cint): CursorHandle {.cdecl, importc: "glfwCreateStandardCursor".}
 proc destroyCursor*(cusor: CursorHandle) {.cdecl, importc: "glfwDestroyCursor".}
-# time functions
+# Time functions
 proc getTime*(): cdouble {.cdecl, importc: "glfwGetTime".}
 proc getTimerFrequency*(): culonglong {.cdecl, importc: "glfwGetTimerFrequency".}
 proc getTimerValue*(): culonglong {.cdecl, importc: "glfwGetTimerValue".}
 proc swapInterval*(interval: cint) {.cdecl, importc: "glfwSwapInterval".}
 proc waitEventsTimeout*(timeout: cdouble) {.cdecl, importc: "glfwWaitEventsTimeout".}
 proc setTime*(time: cdouble) {.cdecl, importc: "glfwSetTime".}
-# event functions
+# Event functions
 proc pollEvents*() {.cdecl, importc: "glfwPollEvents".}
 proc postEmptyEvent*() {.cdecl, importc: "glfwPostEmptyEvent".}
 proc waitEvents*() {.cdecl, importc: "glfwWaitEvents".}
 proc setErrorCallback*(cbfun: ErrorFun): ErrorFun {.cdecl, importc: "glfwSetErrorCallback".}
-# joystick
+# Joystick functions
 proc joystickPresent*(joy: cint): cint {.cdecl, importc: "glfwJoystickPresent".}
 proc getJoystickAxes*(joy: cint, count: ptr cint): ptr cfloat {.cdecl, importc: "glfwGetJoystickAxes".}
 proc getJoystickButtons*(joy: cint, count: ptr cint): ptr cuchar {.cdecl, importc: "glfwGetJoystickButtons".}
@@ -434,7 +433,7 @@ proc getVideoModes*(monitor: Monitor, count: ptr cint): ptr VidMode {.cdecl, imp
 proc setMonitorCallback*(cbfun: MonitorFun): MonitorFun {.cdecl, importc: "glfwSetMonitorCallback".}
 proc setGamma*(monitor: Monitor, gamma: cfloat) {.cdecl, importc: "glfwSetGamma".}
 proc setGammaRamp*(monitor: Monitor, ramp: ptr GammaRamp) {.cdecl, importc: "glfwSetGammaRamp".}
-# window fucntions
+# Window functions
 proc createWindow*(width: cint, height: cint, title: cstring, monitor: Monitor, share: Window): Window{.cdecl, importc: "glfwCreateWindow".}
 proc defaultWindowHints*() {.cdecl, importc: "glfwDefaultWindowHints".}
 proc destroyWindow*(window: Window) {.cdecl, importc: "glfwDestroyWindow".}
@@ -490,7 +489,7 @@ proc swapBuffers*(window: Window) {.cdecl, importc: "glfwSwapBuffers".}
 proc windowShouldClose*(window: Window): cint {.cdecl, importc: "glfwWindowShouldClose".}
 proc windowHint*(target: cint, hint: cint) {.cdecl, importc: "glfwWindowHint".}
 
-# vulkan types & functions
+# Vulkan types & functions
 type
   VkInstance* = pointer
   VkPhysicalDevice* = pointer
