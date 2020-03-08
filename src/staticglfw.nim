@@ -390,7 +390,6 @@ type
     height: cint
     pixels: seq[byte]
 
-
 # Methods
 proc init*(): cint {.cdecl, importc: "glfwInit".}
 proc terminate*() {.cdecl, importc: "glfwTerminate".}
