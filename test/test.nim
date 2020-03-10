@@ -1,5 +1,4 @@
-import staticglfw
-import opengl
+import opengl, staticglfw
 
 # Init GLFW
 if init() == 0:
