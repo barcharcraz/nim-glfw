@@ -426,6 +426,7 @@ proc getPrimaryMonitor*(): Monitor {.cdecl, importc: "glfwGetPrimaryMonitor".}
 proc getGammaRamp*(monitor: Monitor): ptr GammaRamp {.cdecl, importc: "glfwGetGammaRamp".}
 proc getMonitorName*(monitor: Monitor): cstring {.cdecl, importc: "glfwGetMonitorName".}
 proc getMonitorPhysicalSize*(monitor: Monitor, width: ptr cint, height: ptr cint) {.cdecl, importc: "glfwGetMonitorPhysicalSize".}
+proc getMonitorContentScale*(monitor: Monitor, xscale: ptr cfloat, yscale: ptr cfloat) {.cdecl, importc: "glfwGetMonitorContentScale".}
 proc getMonitorPos*(monitor: Monitor, xpos: ptr cint, ypos: ptr cint) {.cdecl, importc: "glfwGetMonitorPos".}
 proc getVideoMode*(monitor: Monitor): ptr VidMode {.cdecl, importc: "glfwGetVideoMode".}
 proc getVideoModes*(monitor: Monitor, count: ptr cint): ptr VidMode {.cdecl, importc: "glfwGetVideoModes".}
