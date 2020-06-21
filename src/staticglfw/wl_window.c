@@ -142,8 +142,8 @@ static struct wl_buffer* createShmBuffer(const GLFWimage* image)
     if (fd < 0)
     {
         _glfwInputError(GLFW_PLATFORM_ERROR,
-                        "Wayland: Creating a buffer file for %d B failed: %m",
-                        length);
+                        "Wayland: Creating a buffer file for %d B failed: %s",
+                        length, strerror(errno));
         return NULL;
     }
 
@@ -151,7 +151,7 @@ static struct wl_buffer* createShmBuffer(const GLFWimage* image)
     if (data == MAP_FAILED)
     {
         _glfwInputError(GLFW_PLATFORM_ERROR,
-                        "Wayland: mmap failed: %m");
+                        "Wayland: mmap failed: %s", strerror(errno));
         close(fd);
         return NULL;
     }
@@ -749,10 +749,17 @@ static void handleEvents(int timeout)
             if (read_ret != 8)
                 return;
 
-            for (i = 0; i < repeats; ++i)
-                _glfwInputKey(_glfw.wl.keyboardFocus, _glfw.wl.keyboardLastKey,
-                              _glfw.wl.keyboardLastScancode, GLFW_REPEAT,
-                              _glfw.wl.xkb.modifiers);
+            if (_glfw.wl.keyboardFocus)
+            {
+                for (i = 0; i < repeats; ++i)
+                {
+                    _glfwInputKey(_glfw.wl.keyboardFocus,
+                                  _glfw.wl.keyboardLastKey,
+                                  _glfw.wl.keyboardLastScancode,
+                                  GLFW_REPEAT,
+                                  _glfw.wl.xkb.modifiers);
+                }
+            }
         }
 
         if (fds[2].revents & POLLIN)
@@ -883,8 +890,8 @@ void _glfwPlatformSetWindowTitle(_GLFWwindow* window, const char* title)
 void _glfwPlatformSetWindowIcon(_GLFWwindow* window,
                                 int count, const GLFWimage* images)
 {
-    _glfwInputError(GLFW_PLATFORM_ERROR,
-                    "Wayland: Setting window icon not supported");
+    _glfwInputError(GLFW_FEATURE_UNAVAILABLE,
+                    "Wayland: The platform does not support setting the window icon");
 }
 
 void _glfwPlatformGetWindowPos(_GLFWwindow* window, int* xpos, int* ypos)
@@ -892,16 +899,16 @@ void _glfwPlatformGetWindowPos(_GLFWwindow* window, int* xpos, int* ypos)
     // A Wayland client is not aware of its position, so just warn and leave it
     // as (0, 0)
 
-    _glfwInputError(GLFW_PLATFORM_ERROR,
-                    "Wayland: Window position retrieval not supported");
+    _glfwInputError(GLFW_FEATURE_UNAVAILABLE,
+                    "Wayland: The platform does not provide the window position");
 }
 
 void _glfwPlatformSetWindowPos(_GLFWwindow* window, int xpos, int ypos)
 {
     // A Wayland client can not set its position, so just warn
 
-    _glfwInputError(GLFW_PLATFORM_ERROR,
-                    "Wayland: Window position setting not supported");
+    _glfwInputError(GLFW_FEATURE_UNAVAILABLE,
+                    "Wayland: The platform does not support setting the window position");
 }
 
 void _glfwPlatformGetWindowSize(_GLFWwindow* window, int* width, int* height)
@@ -940,6 +947,8 @@ void _glfwPlatformSetWindowAspectRatio(_GLFWwindow* window,
 {
     // TODO: find out how to trigger a resize.
     // The actual limits are checked in the xdg_toplevel::configure handler.
+    _glfwInputError(GLFW_FEATURE_UNIMPLEMENTED,
+                    "Wayland: Window aspect ratio not yet implemented");
 }
 
 void _glfwPlatformGetFramebufferSize(_GLFWwindow* window,
@@ -1030,14 +1039,14 @@ void _glfwPlatformHideWindow(_GLFWwindow* window)
 void _glfwPlatformRequestWindowAttention(_GLFWwindow* window)
 {
     // TODO
-    _glfwInputError(GLFW_PLATFORM_ERROR,
+    _glfwInputError(GLFW_FEATURE_UNIMPLEMENTED,
                     "Wayland: Window attention request not implemented yet");
 }
 
 void _glfwPlatformFocusWindow(_GLFWwindow* window)
 {
-    _glfwInputError(GLFW_PLATFORM_ERROR,
-                    "Wayland: Focusing a window requires user interaction");
+    _glfwInputError(GLFW_FEATURE_UNAVAILABLE,
+                    "Wayland: The platform does not support setting the input focus");
 }
 
 void _glfwPlatformSetWindowMonitor(_GLFWwindow* window,
@@ -1096,7 +1105,7 @@ int _glfwPlatformFramebufferTransparent(_GLFWwindow* window)
 void _glfwPlatformSetWindowResizable(_GLFWwindow* window, GLFWbool enabled)
 {
     // TODO
-    _glfwInputError(GLFW_PLATFORM_ERROR,
+    _glfwInputError(GLFW_FEATURE_UNIMPLEMENTED,
                     "Wayland: Window attribute setting not implemented yet");
 }
 
@@ -1114,7 +1123,7 @@ void _glfwPlatformSetWindowDecorated(_GLFWwindow* window, GLFWbool enabled)
 void _glfwPlatformSetWindowFloating(_GLFWwindow* window, GLFWbool enabled)
 {
     // TODO
-    _glfwInputError(GLFW_PLATFORM_ERROR,
+    _glfwInputError(GLFW_FEATURE_UNIMPLEMENTED,
                     "Wayland: Window attribute setting not implemented yet");
 }
 
@@ -1125,6 +1134,8 @@ float _glfwPlatformGetWindowOpacity(_GLFWwindow* window)
 
 void _glfwPlatformSetWindowOpacity(_GLFWwindow* window, float opacity)
 {
+    _glfwInputError(GLFW_FEATURE_UNAVAILABLE,
+                    "Wayland: The platform does not support setting the window opacity");
 }
 
 void _glfwPlatformSetRawMouseMotion(_GLFWwindow *window, GLFWbool enabled)
@@ -1186,6 +1197,8 @@ void _glfwPlatformSetCursorMode(_GLFWwindow* window, int mode)
 const char* _glfwPlatformGetScancodeName(int scancode)
 {
     // TODO
+    _glfwInputError(GLFW_FEATURE_UNIMPLEMENTED,
+                    "Wayland: Key names not yet implemented");
     return NULL;
 }
 

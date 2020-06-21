@@ -1,10 +1,3 @@
-# Static GLFW for nim
-
-This library is always statically linked so only the functionality you use gets included in the binary. There is also no need for glfw.dll or libglfw3.dylib to be included.
-
-## Example
-
-```nim
 import staticglfw
 import opengl
 
@@ -39,10 +32,3 @@ while windowShouldClose(window) == 0:
 window.destroyWindow()
 # Exit GLFW.
 terminate()
-```
-
-## GLFW version:
-
-Version: 3.3.2
-
-Currently tracking this commit: https://github.com/glfw/glfw/commit/bf1c62b2612dba79365e836830fe2a6105adbe78
