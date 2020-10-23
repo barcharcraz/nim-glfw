@@ -371,7 +371,7 @@ type
   KeyFun* = proc (window: Window, key: cint, scancode: cint, action: cint, modifiers: cint) {.cdecl.}
   CharFun* = proc (window: Window, character: cuint) {.cdecl.}
   CharModsFun* = proc (window: Window, codepoint: cuint, mods: cint) {.cdecl.}
-  DropFun* = proc (window: Window, count: cint, paths: ptr cstring)
+  DropFun* = proc (window: Window, count: cint, paths: cstringArray) {.cdecl.}
   MonitorFun* = proc (monitor: Monitor, connected: cint) {.cdecl.}
   JoystickFun* = proc (joy : cint, event: cint)
 
