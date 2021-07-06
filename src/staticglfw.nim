@@ -450,6 +450,7 @@ proc getInputMode*(window: Window, mode: cint): cint {.cdecl, importc: "glfwGetI
 proc getKey*(window: Window, key: cint): cint {.cdecl, importc: "glfwGetKey".}
 proc getMouseButton*(window: Window, button: cint): cint {.cdecl, importc: "glfwGetMouseButton".}
 proc getWindowAttrib*(window: Window, attrib: cint): cint {.cdecl, importc: "glfwGetWindowAttrib".}
+proc getWindowContentScale*(window: Window, xscale: ptr cfloat, yscale: ptr cfloat) {.cdecl, importc: "glfwGetWindowContentScale".}
 proc getWindowFrameSize*(window: Window, left, top, right, bottom: ptr int) {.cdecl, importc: "glfwGetWindowFrameSize".}
 proc getWindowMonitor*(window: Window): Monitor {.cdecl, importc: "glfwGetWindowMonitor".}
 proc getWindowPos*(window: Window, xpos: ptr cint, ypos: ptr cint) {.cdecl, importc: "glfwGetWindowPos".}
